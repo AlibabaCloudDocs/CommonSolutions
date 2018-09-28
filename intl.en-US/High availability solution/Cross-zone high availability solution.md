@@ -61,34 +61,34 @@ The following section presents the architecture and construction process of serv
 
 As shown in the following figure, ECS instances are bound to different zones under a Server Load Balancer instance. This way, when Zone A works normally, user access traffic will follow the path of the blue solid line shown in the figure. When a fault occurs in Zone A, user access traffic will be distributed to the path of the black dotted line. This prevents a fault in a single zone from causing service unavailability, and reduces latency by selecting zones between different products.
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709836962_en-US.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220116962_en-US.png)
 
 The construction process for this architecture is described in the following steps.
 
 1.  Log on to the Alibaba Cloud console, select **Server Load Balancer**, and click **Create Server Load Balancer** in the upper right corner.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709836965_en-US.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220116965_en-US.png)
 
     We use the region North China 2 as an example and purchase a multi-zone instance, with primary zone B and backup zone A.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709836970_en-US.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220116970_en-US.png)
 
 2.  Create ECS instances in both the primary and backup zones of Server Load Balancer.
 
     We create a test instance in zones A and B of the North China 2 region. In this example, we use the default security group and choose VPC instances with a 1-core 1 GB memory CentOS 7.2 configuration.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709836972_en-US.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220116972_en-US.png)
 
 3.  Create listeners and add backend servers.
     1.  In the load balancing console interface, locate the instance you created, and click administration.
     2.  Click **Backend Server** and select Excluded Servers. Then, find the corresponding instances and click **Add**.
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709836973_en-US.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126973_en-US.png)
 
     3.  After completing the process, you can view the corresponding ECS instances and their weights in the Included Servers interface.
     4.  Click the Listener bar on the left and select **Add Listener**.  In this example, we use the layer-4 TCP mode, set the listener port as port 80, set the backend forwarding port as port 80, and use the default weighted round robin method. We also enable session persistence and use the default 1,000 second time-out time.
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709836976_en-US.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126976_en-US.png)
 
     5.  Set the health check to TCP mode and check the backend port 80.
     6.  After completing these steps, you can view the added listener and its status on the Listener page.
@@ -100,24 +100,24 @@ The construction process for this architecture is described in the following ste
 
 The multi-zone RDS architecture is shown in the following figure:
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709846977_en-US.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126977_en-US.png)
 
 For regions without multi-zone RDS, you can create an RDS instance in each zone, with the backup zone used as the backup database. This database is synchronized with the RDS instance in the primary zone.
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709846978_en-US.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126978_en-US.png)
 
 The construction process for a multi-zone RDS architecture is as follows:
 
 1.  After deploying multi-zone Server Load Balancer and ECS instances in different zones, purchase RDS instances.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709846980_en-US.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126980_en-US.png)
 
 2.  Select a region that supports multi-zone RDS, as shown in the following figure.
 3.  After purchasing the RDS instance, you can view it on the console.
 
     Likewise, you can view the RDS high availability information and switch between master and backup instances on the console, as shown in the following figure.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709846982_en-US.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126982_en-US.png)
 
 
 The following section gives an example of RDS construction in different zones.
@@ -129,7 +129,7 @@ The following section gives an example of RDS construction in different zones.
 
 When there are multiple zones in a single city and an environment is deployed in a remote region as well, the resulting architecture greatly increases service availability and achieves the goal of remote disaster tolerance.
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15332709846989_en-US.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/15079/15381220126989_en-US.png)
 
 **Note:** The ultimate service access region can be achieved by configuring the DNS resolution. At the same time, RDS uses DTS synchronization.
 
