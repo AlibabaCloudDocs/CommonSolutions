@@ -21,14 +21,14 @@
 
     由于路由表按照最长匹配原则，会优先匹配子网掩码最长的路由条目；而去往任意IP地址的数据包，都会匹配到这8条中的一条；因此，0.0.0.0/0这条路由实际上已经不再有用了。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15445785674444_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15447529534444_zh-CN.png)
 
 2.   删除目标网段为0.0.0.0/0的路由条目。 
 3.   创建NAT网关。 
 
     创建NAT网关后，系统会自动添加一条0.0.0.0/0的路由，指向NAT网关。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15445785674445_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15447529534445_zh-CN.png)
 
 4.   绑定弹性公网IP。 
 
