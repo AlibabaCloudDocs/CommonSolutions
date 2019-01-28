@@ -1,10 +1,10 @@
 # 自建SNAT网关平滑迁移到NAT网关 {#task_ipr_2rb_zdb .task}
 
-本操作介绍如何将自建SNAT网关无缝地迁移到NAT网关。
+通过使用路由表的最长匹配原则，您可以将搭建在ECS实例的SNAT网关平滑迁移至阿里云NAT网关。
 
 如果您已经在VPC中基于ECS搭建了SNAT网关，又想将架构切换为基于NAT网关实现的SNAT，您可以将原有自建SNAT网关拆除，再进行NAT网关的创建和配置。但该操作会导致SNAT功能中断一段时间。
 
-本文提供一种操作方法，利用路由表的一些特性（主要是“最长匹配原则”），实现从自建SNAT网关到阿里云NAT网关的无缝切换。切换过程中，不会出现SNAT功能不可用，仅在切换的一瞬间发生已有TCP连接的断开，只需应用进行重连即可。
+本教程的迁移方法利用路由表的一些特性（主要是“最长匹配原则”），实现从自建SNAT网关到阿里云NAT网关的无缝切换。切换过程中，不会出现SNAT功能不可用，仅在切换的一瞬间发生已有TCP连接的断开，应用进行重连即可。
 
 本操作中作为示例的VPC和ECS配置如下：
 
@@ -21,14 +21,14 @@
 
     由于路由表按照最长匹配原则，会优先匹配子网掩码最长的路由条目；而去往任意IP地址的数据包，都会匹配到这8条中的一条；因此，0.0.0.0/0这条路由实际上已经不再有用了。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15447529534444_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15486426964444_zh-CN.png)
 
 2.   删除目标网段为0.0.0.0/0的路由条目。 
 3.   创建NAT网关。 
 
     创建NAT网关后，系统会自动添加一条0.0.0.0/0的路由，指向NAT网关。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15447529534445_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13997/15486426964445_zh-CN.png)
 
 4.   绑定弹性公网IP。 
 
