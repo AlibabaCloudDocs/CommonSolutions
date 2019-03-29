@@ -4,9 +4,9 @@ Alibaba Cloud products provide various methods to encrypt static data, as shown 
 
 |Product|Encryption Method|
 |:------|:----------------|
-|OSS|[OSS client-side encryption](#secdiv_oss_client)|[OSS Server-side encryption](#secdiv_oss_server)|
-|RDS|[SSL encryption](#secdiv_rds_ssl)|[TDE encryption](#secdiv_rds_tde)|
-|ECS Disk|To encrypt the data stored on a disk, you can use the [ECS disk encryption](#section_qty_bm5_m2b) function to encrypt cloud disks and shared block storage.|
+|OSS|[OSS client-side encryption](#)|[OSS Server-side encryption](#)|
+|RDS|[SSL encryption](#)|[TDE encryption](#)|
+|ECS Disk|To encrypt the data stored on a disk, you can use the [ECS disk encryption](#) function to encrypt cloud disks and shared block storage.|
 
 ## OSS encryption {#section_l2p_435_m2b .section}
 
@@ -23,7 +23,7 @@ Client encryption means that the encryption is completed before the user data is
 
 OSS supports server-side encryption for the data uploaded by users: When a user uploads data, OSS encrypts the user data and permanently stores the data with encryption; when the user downloads the data, OSS automatically decrypts the encrypted data, returns the original data to the user, and declares in the header of the returned HTTP request that the data has been encrypted on the server.
 
-For the details, see [Server-side encryption](../../../../intl.en-US/Developer Guide/Security management/Server-side encryption.md).
+For the details, see [Server-side encryption](../../../../../intl.en-US/Developer Guide/Data encryption/Server-side encryption.md).
 
 ## RDS encryption {#section_qwn_ql5_m2b .section}
 
@@ -66,5 +66,5 @@ Alibaba Cloud's overall key management infrastructure conforms with the recommen
 
 Each Alibaba Cloud ECS account has a unique CMK in each region. This key is separate from the data and stored in a system protected by strict physical and logical security controls. Each encrypted disk uses an encryption key unique to the specific disk and its snapshots. The encryption key is created from and encrypted by the CMK for the current user in the current region. The disk encryption key is only used in the memory of the host that runs your ECS instance. The key is never stored in plaintext in any permanent storage media \(such as a disk\).
 
-For more information about cloud disk encryption, see [ECs disc encryption](../../../../intl.en-US/Product Introduction/Block storage/ECS disk encryption.md).
+For more information about cloud disk encryption, see [ECs disc encryption](../../../../../intl.en-US/Block storage/Block storage/ECS disk encryption.md).
 
